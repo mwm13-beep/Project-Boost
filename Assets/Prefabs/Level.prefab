@@ -44,6 +44,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5680903750549805443}
     m_Modifications:
+    - target: {fileID: 5238447547348767988, guid: 456fb34b67abd02438c3e763a1c98371, type: 3}
+      propertyPath: upThrust
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5238447547348767988, guid: 456fb34b67abd02438c3e763a1c98371, type: 3}
+      propertyPath: mainEngine
+      value: 
+      objectReference: {fileID: 8300000, guid: 6e8b62a044f81ef4a815f23e7a6dd113, type: 3}
+    - target: {fileID: 7210052470975471941, guid: 456fb34b67abd02438c3e763a1c98371, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7804465249055261108, guid: 456fb34b67abd02438c3e763a1c98371, type: 3}
       propertyPath: m_LocalPosition.x
       value: -110.64563
@@ -118,6 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f36cf06f387f27546ac00e0ae4ce54f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelLoadDelay: 2
+  crash: {fileID: 8300000, guid: 3d92c3dc0940df04f840f97c5b5ff4e2, type: 3}
+  success: {fileID: 8300000, guid: 853e42d6c10e4af4986af45fe49d54b4, type: 3}
 --- !u!1001 &684900284345241915
 PrefabInstance:
   m_ObjectHideFlags: 0
