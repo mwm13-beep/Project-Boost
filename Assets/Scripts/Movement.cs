@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-
     [SerializeField] float upThrust = 100f;
     [SerializeField] float rotationThrust = 100f;
-    [SerializeField] AudioClip mainEngine; //array of audio clips
+    [SerializeField] AudioClip thrusterSFX;
+    [SerializeField] ParticleSystem mainThrusterParticles;
+    [SerializeField] ParticleSystem rightThrusterParticles;
+    [SerializeField] ParticleSystem leftThrusterParticles;
     
     Rigidbody rb;
     AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,15 +32,43 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            rb.AddRelativeForce(Vector3.up * upThrust * Time.deltaTime);
-            if (!audioSource.isPlaying)
-            {
-                audioSource.PlayOneShot(mainEngine);
-            }
+            StartMainThruster();
         }
         else
         {
+            StopMainThruster();
+        }
+    }
+
+    private void StopMainThruster()
+    {
+        StopThrusterSFX();
+        mainThrusterParticles.Stop();
+    }
+
+    private void StopThrusterSFX()
+    {
+        //stop the thruster audio if there is no input
+        if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.Space))
+        {
             audioSource.Stop();
+        }
+    }
+
+    private void StartMainThruster()
+    {
+        //add force to the rocket
+        rb.AddRelativeForce(Vector3.up * upThrust * Time.deltaTime);
+        PlayThrusterParticleFX(mainThrusterParticles);
+        PlayThrusterSFX(thrusterSFX);
+    }
+
+    private void PlayThrusterSFX(AudioClip sfx)
+    {
+        //play thruster audio
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(sfx);
         }
     }
 
@@ -45,11 +76,39 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A)) //rotate to the left
         {
-            Rotate(rotationThrust);
+            StartRotationThrust(-1, leftThrusterParticles);
         }
         else if (Input.GetKey(KeyCode.D)) //rotate to the right
         {
-            Rotate(-rotationThrust);
+            StartRotationThrust(1, rightThrusterParticles);
+        }
+        else
+        {
+            StopRotationThrusters();
+        }
+    }
+
+    private void StopRotationThrusters()
+    {
+        //stop the thruster particles and don't rotate
+        rightThrusterParticles.Stop();
+        leftThrusterParticles.Stop();
+        StopThrusterSFX();
+    }
+
+    private void StartRotationThrust(int rotation, ParticleSystem rightThrusterParticles)
+    {
+        PlayThrusterParticleFX(rightThrusterParticles);
+        PlayThrusterSFX(thrusterSFX);
+        Rotate(-rotation * rotationThrust);
+    }
+
+    private void PlayThrusterParticleFX(ParticleSystem effect)
+    {
+        //play the thruster particles
+        if (!effect.isPlaying)
+        {
+            effect.Play();
         }
     }
 

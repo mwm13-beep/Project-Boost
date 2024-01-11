@@ -5,8 +5,12 @@ using UnityEngine.SceneManagement;
 public class CollisionHandler : MonoBehaviour
 {
     [SerializeField] float levelLoadDelay = 1f;
-    [SerializeField] AudioClip crash;
-    [SerializeField] AudioClip success;
+    [SerializeField] AudioClip crashSound;
+    [SerializeField] AudioClip successSound;
+
+
+    [SerializeField] ParticleSystem crashParticles;
+    [SerializeField] ParticleSystem successParticles;
 
     AudioSource audioSource;
     bool isTransitioning = false;
@@ -14,6 +18,28 @@ public class CollisionHandler : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+    }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            print("Loading next level");
+            LoadNext();
+        }
+        else if(Input.GetKeyDown(KeyCode.C))
+        {
+            isTransitioning = !isTransitioning;
+
+            if (isTransitioning)
+            {
+                print("Collision disabled");
+            }
+            else
+            {
+                print("Collision enabled");
+            }
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -37,9 +63,10 @@ public class CollisionHandler : MonoBehaviour
     {
         isTransitioning = true;
         GetComponent<Movement>().enabled = false;
+        successParticles.Play();
         print("Landed");
         audioSource.Stop();
-        audioSource.PlayOneShot(success);
+        audioSource.PlayOneShot(successSound);
         Invoke("LoadNext", levelLoadDelay);
     }
 
@@ -47,9 +74,10 @@ public class CollisionHandler : MonoBehaviour
     {
         isTransitioning = true;
         GetComponent<Movement>().enabled = false;
+        crashParticles.Play();
         print("Dead");
         audioSource.Stop();
-        audioSource.PlayOneShot(crash);
+        audioSource.PlayOneShot(crashSound);
         Invoke("ReloadLevel", levelLoadDelay);
     }
 
