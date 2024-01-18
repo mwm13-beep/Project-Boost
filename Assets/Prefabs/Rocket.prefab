@@ -732,6 +732,7 @@ GameObject:
   - component: {fileID: 6011995440831937088}
   - component: {fileID: 7210052470975471941}
   - component: {fileID: 2799975903834290364}
+  - component: {fileID: 3171150615492945170}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Untagged
@@ -786,8 +787,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7597b20363b32141942b21eec513930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upThrust: 1000
-  rotationThrust: 100
+  upThrust: 1700
+  rotationThrust: 150
   thrusterSFX: {fileID: 8300000, guid: 6e8b62a044f81ef4a815f23e7a6dd113, type: 3}
   mainThrusterParticles: {fileID: 7109225410161112995}
   rightThrusterParticles: {fileID: 8464555222751706856}
@@ -932,6 +933,18 @@ MonoBehaviour:
   successSound: {fileID: 8300000, guid: 853e42d6c10e4af4986af45fe49d54b4, type: 3}
   crashParticles: {fileID: 7262414561098263429}
   successParticles: {fileID: 9016223329863013095}
+--- !u!114 &3171150615492945170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8832687337786442499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dd4d1110ed0ffe42a301db4d1918912, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5060416041653229855
 PrefabInstance:
   m_ObjectHideFlags: 0
